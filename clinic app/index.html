@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePlus Clinic</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #eaf3f8, #dceefa);
+  color: #183448;
+  min-height: 100vh;
+}
+
+.navbar {
+  background: white;
+  box-shadow: 0 4px 12px #00000012;
+  padding: 15px;
+}
+
+.navbar-brand {
+  color: #087eae;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: #183448;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #087eae;
+}
+
+.hero {
+  background: linear-gradient(120deg, #087eae, #20b6aa);
+  color: white;
+  padding: 75px 20px;
+  text-align: center;
+  border-radius: 0 0 40px 40px;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: bold;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: 20px auto;
+  line-height: 1.7;
+}
+
+.container-main {
+  max-width: 1100px;
+  margin: 45px auto;
+  padding: 15px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+  animation: fade .3s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #183448;
+}
+
+.subtitle {
+  text-align: center;
+  color: #718493;
+  margin-bottom: 35px;
+}
+
+.doctor-card {
+  background: white;
+  border-radius: 18px;
+  padding: 25px 15px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 5px 18px #0000000c;
+  transition: .3s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px #00000018;
+}
+
+.doctor-icon {
+  height: 75px;
+  width: 75px;
+  background: #e4f5fb;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 35px;
+  margin: 0 auto 15px;
+}
+
+.doctor-card h5 {
+  font-weight: bold;
+}
+
+.doctor-card p {
+  color: #82929d;
+  font-size: 14px;
+}
+
+.custom-btn {
+  background: #087eae;
+  color: white;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 9px;
+  font-weight: bold;
+  transition: .3s;
+}
+
+.custom-btn:hover {
+  background: #065d82;
+  color: white;
+}
+
+.outline-btn {
+  background: white;
+  color: #087eae;
+  border: 1px solid #087eae;
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.outline-btn:hover {
+  background: #087eae;
+  color: white;
+}
+
+.form-card,
+.content-card {
+  background: white;
+  max-width: 750px;
+  margin: auto;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 5px 25px #0000000d;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-control,
+.form-select {
+  padding: 12px;
+  border-radius: 9px;
+}
+
+.info-box {
+  background: #edf8fc;
+  padding: 18px;
+  border-radius: 12px;
+  margin: 15px 0;
+}
+
+.success-icon {
+  color: #20ad83;
+  font-size: 65px;
+}
+
+footer {
+  background: #183448;
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+  margin-top: 60px;
+}
+
+footer p {
+  color: #c7d9e2;
+  font-size: 13px;
+  margin: 5px;
+}
+
+@media(max-width: 576px) {
+  .form-card, .content-card {
+    padding: 22px;
+  }
+
+  .hero {
+    padding: 55px 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+<div class="container-fluid">
+
+<a class="navbar-brand" href="#home" onclick="showPage('home')">
+✚ CarePlus Clinic
+</a>
+
+<button class="navbar-toggler" type="button"
+data-bs-toggle="collapse" data-bs-target="#menu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="menu">
+<ul class="navbar-nav ms-auto text-center">
+
+<li class="nav-item">
+<a class="nav-link active" href="#home"
+onclick="showPage('home')">HOME</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#appointment"
+onclick="showPage('appointment')">APPOINTMENT</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#prescription"
+onclick="showPage('prescription')">PRESCRIPTION</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#payments"
+onclick="showPage('payments')">PAYMENTS</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#contact"
+onclick="showPage('contact')">CONTACT</a>
+</li>
+
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="hero">
+<h1>Your Health, Our Priority</h1>
+
+<p>
+Welcome to CarePlus Clinic. We provide quality healthcare
+services with experienced doctors and compassionate care.
+Your health is our priority.
+</p>
+
+<button class="btn btn-light fw-bold px-4 py-3"
+onclick="showPage('appointment')">
+Book Appointment →
+</button>
+</div>
+
+<div class="container-main">
+
+<h2 class="section-title">Our Services</h2>
+<p class="subtitle">Quality healthcare for everyone.</p>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="doctor-card">
+<div class="doctor-icon">🩺</div>
+<h5>Doctor Consultation</h5>
+<p>Consult experienced medical professionals.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="doctor-card">
+<div class="doctor-icon">💊</div>
+<h5>Prescriptions</h5>
+<p>Access your prescription information.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="doctor-card">
+<div class="doctor-icon">💳</div>
+<h5>Easy Payments</h5>
+<p>Manage your clinic payment information.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment" class="page">
+
+<div class="container-main">
+
+<h2 class="section-title">Our Doctors</h2>
+<p class="subtitle">Choose your preferred doctor.</p>
+
+<div class="row g-4 mb-5">
+
+<script>
+const doctors = [
+["Dr. James","General Physician","👨‍⚕️"],
+["Dr. Jeny","Dermatologist","👩‍⚕️"],
+["Dr. Rekha","Cardiologist","👩‍⚕️"],
+["Dr. Fida","Pediatrician","👩‍⚕️"],
+["Dr. Sreya","Gynecologist","👩‍⚕️"],
+["Dr. Isha","General Physician","👩‍⚕️"],
+["Dr. Jency","Neurologist","👩‍⚕️"],
+["Dr. Adhi","Orthopedic","👨‍⚕️"],
+["Dr. Eilsha","Dentist","👩‍⚕️"],
+["Dr. Naira","Dermatologist","👩‍⚕️"],
+["Dr. Aksha","General Physician","👩‍⚕️"]
+];
+</script>
+
+<div id="doctorList" class="row g-4"></div>
+
+</div>
+
+<div class="form-card">
+
+<h3 class="section-title mb-4">Book Your Appointment</h3>
+
+<form id="appointmentForm">
+
+<div class="mb-3">
+<label class="form-label" for="patientName">Patient Name</label>
+<input type="text" id="patientName" class="form-control"
+required maxlength="100">
+</div>
+
+<div class="mb-3">
+<label class="form-label" for="phone">Phone Number</label>
+<input type="tel" id="phone" class="form-control"
+pattern="[0-9]{10}" maxlength="10"
+inputmode="numeric" placeholder="10 digit phone number" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label" for="email">Email Address</label>
+<input type="email" id="email" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label" for="doctor">Select Doctor</label>
+<select id="doctor" class="form-select" required>
+<option value="">Choose Doctor</option>
+</select>
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label class="form-label" for="date">Appointment Date</label>
+<input type="date" id="date" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label" for="time">Appointment Time</label>
+<select id="time" class="form-select" required>
+<option value="">Choose Time</option>
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>03:00 PM</option>
+<option>04:00 PM</option>
+</select>
+</div>
+
+</div>
+
+<div class="mb-4">
+<label class="form-label" for="reason">Reason for Visit</label>
+<textarea id="reason" class="form-control"
+rows="3" maxlength="500"
+placeholder="Enter your reason"></textarea>
+</div>
+
+<button type="submit" class="custom-btn w-100">
+Confirm Appointment Request
+</button>
+
+</form>
+</div>
+</div>
+</section>
+
+<!-- CONFIRMATION -->
+<section id="confirmation" class="page">
+
+<div class="container-main">
+<div class="content-card text-center">
+
+<div class="success-icon">✓</div>
+
+<h2 class="section-title">Appointment Request Received!</h2>
+
+<p class="text-muted">
+Thank you for choosing CarePlus Clinic.
+</p>
+
+<div class="info-box text-start">
+<p><strong>Booking ID:</strong> <span id="bookingId"></span></p>
+<p><strong>Patient:</strong> <span id="confirmName"></span></p>
+<p><strong>Doctor:</strong> <span id="confirmDoctor"></span></p>
+<p><strong>Date:</strong> <span id="confirmDate"></span></p>
+<p><strong>Time:</strong> <span id="confirmTime"></span></p>
+<p><strong>Status:</strong> Awaiting clinic confirmation</p>
+</div>
+
+<p class="small text-muted">
+This is a demo booking. Your appointment has not been
+sent to the clinic.
+</p>
+
+<button class="custom-btn" onclick="showPage('home')">
+Back to Home
+</button>
+
+</div>
+</div>
+</section>
+
+<!-- PRESCRIPTION -->
+<section id="prescription" class="page">
+
+<div class="container-main">
+
+<h2 class="section-title">My Prescriptions</h2>
+<p class="subtitle">View your prescription information.</p>
+
+<div class="content-card text-center">
+
+<div class="doctor-icon">💊</div>
+
+<h4>Prescription Portal</h4>
+
+<p class="text-muted">
+Your prescriptions will be displayed here
+when connected to your patient account.
+</p>
+
+<div class="alert alert-info mt-4">
+No prescription records available.
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- PAYMENTS -->
+<section id="payments" class="page">
+
+<div class="container-main">
+
+<h2 class="section-title">Payments</h2>
+<p class="subtitle">Manage your clinic payments.</p>
+
+<div class="content-card text-center">
+
+<div class="doctor-icon">💳</div>
+
+<h4>Payment Portal</h4>
+
+<p class="text-muted">
+View your bills and payment history here.
+</p>
+
+<div class="info-box">
+<h5>Payment Status</h5>
+<p>No payment records available.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="page">
+
+<div class="container-main">
+
+<h2 class="section-title">Contact Us</h2>
+<p class="subtitle">We are happy to help you.</p>
+
+<div class="content-card">
+
+<div class="info-box">
+<strong>📍 Address</strong>
+<p>Add your clinic address here.</p>
+</div>
+
+<div class="info-box">
+<strong>📞 Phone</strong>
+<p>Add your clinic phone number here.</p>
+</div>
+
+<div class="info-box">
+<strong>✉ Email</strong>
+<p>Add your clinic email here.</p>
+</div>
+
+<div class="info-box">
+<strong>🕒 Working Hours</strong>
+<p>Monday – Saturday: 9 AM – 5 PM</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<h4>✚ CarePlus Clinic</h4>
+<p>Your Health, Our Priority.</p>
+<p>© 2026 CarePlus Clinic. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+// Generate doctor cards and dropdown options
+const doctorList = document.getElementById("doctorList");
+const doctorSelect = document.getElementById("doctor");
+
+doctors.forEach(([name, specialty, emoji]) => {
+
+  const card = document.createElement("div");
+  card.className = "col-6 col-md-4";
+
+  const article = document.createElement("div");
+  article.className = "doctor-card";
+
+  const icon = document.createElement("div");
+  icon.className = "doctor-icon";
+  icon.textContent = emoji;
+
+  const heading = document.createElement("h5");
+  heading.textContent = name;
+
+  const description = document.createElement("p");
+  description.textContent = specialty;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "outline-btn";
+  button.textContent = "Select Doctor";
+  button.addEventListener("click", () => selectDoctor(name));
+
+  article.append(icon, heading, description, button);
+  card.appendChild(article);
+  doctorList.appendChild(card);
+
+  const option = document.createElement("option");
+  option.value = name;
+  option.textContent = name;
+  doctorSelect.appendChild(option);
+
+});
+
+
+// Page navigation
+function showPage(id) {
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.classList.remove("active");
+  });
+
+  const activeLink = document.querySelector(
+    `.nav-link[href="#${id}"]`
+  );
+
+  if (activeLink) activeLink.classList.add("active");
+
+  const menu = document.getElementById("menu");
+
+  if (menu.classList.contains("show")) {
+    bootstrap.Collapse.getOrCreateInstance(menu).hide();
+  }
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+
+// Doctor selection
+function selectDoctor(name) {
+
+  doctorSelect.value = name;
+
+  document.getElementById("appointmentForm").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+// Set minimum appointment date
+const dateInput = document.getElementById("date");
+
+function getLocalDate() {
+  const now = new Date();
+  const local = new Date(
+    now.getTime() - now.getTimezoneOffset() * 60000
+  );
+  return local.toISOString().split("T")[0];
+}
+
+dateInput.min = getLocalDate();
+
+
+// Appointment submission
+document.getElementById("appointmentForm")
+.addEventListener("submit", function(event) {
+
+  event.preventDefault();
+
+  if (!this.reportValidity()) return;
+
+  const name = document.getElementById("patientName").value.trim();
+  const doctor = doctorSelect.value;
+  const date = dateInput.value;
+  const time = document.getElementById("time").value;
+
+  if (!name || !doctor || !date || !time) {
+    alert("Please complete all required fields.");
+    return;
+  }
+
+  if (date < getLocalDate()) {
+    alert("Please select a valid appointment date.");
+    return;
+  }
+
+  const bookingId = "CP" + Date.now().toString().slice(-8);
+
+  document.getElementById("bookingId").textContent = bookingId;
+  document.getElementById("confirmName").textContent = name;
+  document.getElementById("confirmDoctor").textContent = doctor;
+  document.getElementById("confirmDate").textContent = date;
+  document.getElementById("confirmTime").textContent = time;
+
+  showPage("confirmation");
+
+  this.reset();
+
+});
+
+</script>
+
+</body>
+</html>
